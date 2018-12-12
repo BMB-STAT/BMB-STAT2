@@ -26,7 +26,7 @@ Which dataframe(s) is/are in the standard layout?
 `@possible_answers`
 - Neither in standard layout
 - `mice_1` in standard layout
-- `mice_2` in standard layout
+- [`mice_2` in standard layout]
 - Both in standard layout
 
 `@hint`
@@ -42,7 +42,11 @@ mice_2 <- data.frame(genotype = c("WT", "KO", "WT", "KO", "WT", "KO", "WT", "KO"
 
 `@sct`
 ```{r}
-test_mc(correct = 3)
+msg1 <- "That's not quite right - look carefully at the dataframes again"
+msg2 <- "That's not quite right - look carefully at the dataframes again"
+msg3 <- "Correct!"
+msg4 <- "That's not quite right - look carefully at the dataframes again"
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
 
 ```
 
@@ -66,7 +70,7 @@ Take another look at `mice_1` and `mice_2`. Which layout can accommodate additio
 `@possible_answers`
 - Neither
 - `mice_1`
-- `mice_2`
+- [`mice_2`]
 - Both
 
 `@hint`
@@ -80,8 +84,14 @@ mice_2 <- data.frame(genotype = c("WT", "KO", "WT", "KO", "WT", "KO", "WT", "KO"
 
 `@sct`
 ```{r}
-test_mc(correct = 3)
-success_msg("That's right! You could just add `sex` as an additional column to `mice_2`. It's hard to see how you'd add it to `mice_1`")
+msg1 <- "That's not quite right - consider the dataframes again"
+msg2 <- "That's not quite right - think carefully about how you could add sex to this dataframe"
+msg3 <- "That's right! You could just add `sex` as an additional column to `mice_2`. It's hard to see how you'd add it to `mice_1`"
+msg4 <- "That's not quite right - consider the dataframes again"
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
+
+
+
 ```
 
 ---
@@ -132,8 +142,10 @@ mice
 
 `@sct`
 ```{r}
-test_function("names", args = "x")
-test_output_contains("mice")
+ex() %>% check_function("names") %>% check_arg("x") %>% check_equal()
+ex() %>% check_output_expr("mice")
+msg<-"correct!"
+success_msg(msg, praise = FALSE)
 ```
 
 ---
@@ -162,7 +174,7 @@ How many mice are there in this dataset?
 
 `@possible_answers`
 - 10
-- 20
+- [20]
 - 60
 - 80
 
@@ -176,7 +188,9 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4315/dat
 
 `@sct`
 ```{r}
-test_mc(correct = 2)
+
+ex() %>% check_mc(2)
+
 ```
 
 ---
@@ -193,7 +207,7 @@ skills: 1
 
 Did you spot any trends or patterns in the data?
 
-Actually, it's pretty hard to make sense of a list of numbers like that by just eyeballing them, and impossible with large datasets. It's easier to use summary statistics or graphs to give an overall impression of the data.
+Actually, it's pretty difficult to make sense of a list of numbers like that by just eyeballing them, and impossible with large datasets. It's easier to use summary statistics or graphs to give an overall impression of the data.
 
 Let's take a look at the distribution of mouse weights in a histogram.
 
@@ -222,7 +236,8 @@ hist(mice$weight)
 
 `@sct`
 ```{r}
-test_function("hist", args = "x")
+ex() %>% check_function("hist") %>% check_arg("x") %>% check_equal()
+
 
 ```
 
@@ -283,7 +298,7 @@ What is the approximate shape of this distribution?
 `@possible_answers`
 - Flat
 - Left-skewed
-- Normal
+- [Normal]
 - Right-skewed
 
 `@hint`
@@ -301,7 +316,12 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4315/dat
 
 `@sct`
 ```{r}
-test_mc(correct = 3, feedback_msgs = c("Incorrect. A flat distribution would have roughly equal numbers of mice at each weight", "Incorrect. There is no tail on the left-hand side of the distribution", "Correct. Although not perfectly symmetrical, these data are approximately normally distributed", "Incorrect, but an understandable mistake. The 2 mice over 34 give the impression of a longer tail on the right of the distribution. Although not perfectly symmetrical, these data are approximately normally distributed"))
+msg1 <- "Incorrect. A flat distribution would have roughly equal numbers of mice at each weight"
+msg2 <- "Incorrect. There is no tail on the left-hand side of the distribution"
+msg3 <- "Correct. Although not perfectly symmetrical, these data are approximately normally distributed"
+msg4 <- "Incorrect, but an understandable mistake. The 2 mice over 34 give the impression of a longer tail on the right of the distribution. Although not perfectly symmetrical, these data are approximately normally distributed"
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
+
 ```
 
 ---
@@ -316,7 +336,7 @@ xp: 100
 skills: 1
 ```
 
-Boxplots are way to summarise data graphically. These provide less information than histograms, but can make it easier to compare data.
+Boxplots are a way to summarise data graphically. These provide less information than histograms, but can make it easier to compare data.
 
 `@instructions`
 Use the `boxplot()` function to plot the `weight` column from `mice`.
@@ -343,7 +363,7 @@ boxplot(mice$weight)
 
 `@sct`
 ```{r}
-test_function("boxplot", args = "x")
+ex() %>% check_function("boxplot") %>% check_arg("x") %>% check_equal()
 ```
 
 ---
@@ -371,7 +391,7 @@ By definition, a quarter of the values will fall within each quartile. Approxima
 - 28 - 29
 - 24 - 36
 - 31 - 36
-- 28 - 31
+- [28 - 31]
 
 `@hint`
 
@@ -383,7 +403,7 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4315/dat
 
 `@sct`
 ```{r}
-test_mc(correct = 5)
+ex() %>% check_mc(5)
 ```
 
 ---
@@ -431,7 +451,7 @@ boxplot(mice$weight ~ mice$genotype)
 
 `@sct`
 ```{r}
-test_function("boxplot", args = "formula")
+ex() %>% check_function("boxplot") %>% check_arg("formula") %>% check_equal()
 ```
 
 ---
@@ -475,7 +495,8 @@ summary(mice$weight)
 
 `@sct`
 ```{r}
-test_function("summary", args = "object")
+#test_function("summary", args = "object")
+ex() %>% check_function("summary") %>% check_arg("object") %>% check_equal()
 ```
 
 ---
@@ -492,13 +513,13 @@ skills: 1
 
 Produce the summary statistics for `mice$weight` again in the **R Console** and take a look at the output.
 
-Which of the following is *not* given.
+Which of the following is *not* given?
 
 `@possible_answers`
 - median
 - first quartile
 - mean
-- number of values
+- [number of values]
 - maximum value
 
 `@hint`
@@ -511,7 +532,7 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/course_4315/dat
 
 `@sct`
 ```{r}
-test_mc(correct = 4)
+ex() %>% check_mc(4)
 ```
 
 ---
@@ -553,7 +574,8 @@ summary(mice)
 
 `@sct`
 ```{r}
-test_function("summary", args = "object")
+
+ex() %>% check_function("summary") %>% check_arg("object") %>% check_equal()
 ```
 
 ---
@@ -575,7 +597,7 @@ Then, take another look at the summary statistics for `mice`.
 Which columns are summarised in a useful way by the `summary()` function?
 
 `@possible_answers`
-- weight
+- [weight]
 - sex
 - genotype
 - weight and sex
@@ -593,7 +615,15 @@ mice <- mice[,c(3,1,2)]
 
 `@sct`
 ```{r}
-test_mc(correct = 1, feedback_msgs = c("Correct!", "Incorrect. Although it calculates the mean, median, etc for `sex` it doesn't make much sense. What does a mean sex of 1.6 actually mean?", "Incorrect. The output for `genotype` is pretty cryptic.", "Incorrect. Although it calculates the mean, median etc. for `sex` it doesn't make much sense. What does a mean sex of 1.6 actually mean?", "Incorrect. The output for `genotype` is pretty cryptic", "Incorrect. The output for `genotype` is pretty cryptic."))
+msg1 <- "Correct!"
+msg2 <- "Incorrect. Although it calculates the mean, median, etc for `sex` it doesn't make much sense. What does a mean sex of 1.6 actually mean?"
+msg3 <- "Incorrect. The output for `genotype` is pretty cryptic."
+msg4 <- "Incorrect. Although it calculates the mean, median etc. for `sex` it doesn't make much sense. What does a mean sex of 1.6 actually mean?"
+msg5 <- "Incorrect. The output for `genotype` is pretty cryptic."
+msg6 <- "Incorrect. The output for `genotype` is pretty cryptic." 
+
+ex() %>% check_mc(1, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5, msg6))
+
 ```
 
 ---
@@ -651,7 +681,8 @@ factor(mice$sex)
 
 `@sct`
 ```{r}
-test_function("factor", args = "x")
+
+ex() %>% check_function("factor") %>% check_arg("x") %>% check_equal()
 ```
 
 ---
