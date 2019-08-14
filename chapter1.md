@@ -424,7 +424,7 @@ The `boxplot()` function can produce multiple plots if you give it a variable to
 
 Of course if `a` and `b` are columns in dataframe `data`, you would need to include the dataframe name too: `boxplot(data$a ~ data$b)`
 
-*Tip:* Get used to the `a ~ b` format since it's widely used in statistics. More generally, the arguments to the left of the ~ are the *response* variable(s) and the *explanatory* variables.
+*Tip:* Get used to the `a ~ b` format since it's widely used in statistics. More generally, the arguments to the left of the ~ are the *response* variable(s) and the *explanatory* variables are to the right.
 
 `@instructions`
 Produce a boxplot of `weight` grouped by `genotype` from the `mice` dataframe.
